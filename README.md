@@ -1,31 +1,77 @@
-# -AI-CivilEstimator
-CivilEstimator-KA is an AI-based estimation engine built using Karnataka SOR data. It takes construction item descriptions and dimensional inputs (L × B × D) and returns full BOQ-style cost breakdowns, including unit rate, total cost, and optional profit margins.
-# 🏗️ AI Civil Estimator (Karnataka SOR)
+🏗️ 1. Automated BOQ Generation
+Generate full Bill of Quantities (BOQ) with item codes, descriptions, calculated volumes/areas, rates, and total costs — just from a description and dimensions.
 
-**AI Civil Estimator** is an intelligent, BOQ-style construction estimation engine that uses **Karnataka Public Works Department (KPWD)** Schedule of Rates (SOR) data to calculate detailed project costs. Built using a combination of **AI**, **vector search**, and **real government data**, this tool allows engineers, contractors, and project estimators to generate precise cost estimates based on actual input dimensions.
+💬 2. Natural Language Rate Lookup
+Query the tool using plain English (e.g., “RCC M20 for 10m x 0.9m x 0.9m”) and retrieve:
 
----
+Official item code (e.g., KSRB 4.2.2)
 
-### 🎯 Features
+Unit rate from Karnataka PWD SOR
 
-- 🧠 **AI-powered natural language understanding**
-  - Accepts queries like “RCC M20 slab 12m x 0.9m x 0.9m”
-- 🔍 **Smart retrieval from Karnataka SOR**
-  - Uses semantic search or vector similarity to find item codes
-- 🧮 **Dimension-based quantity calculations**
-  - Supports Length × Breadth × Depth or Area logic
-- 💰 **Auto-calculated BOQ output with profit**
-  - Final estimate with configurable profit margin
-- 📤 **Export-ready output**
-  - Compatible with Excel or printable BOQ sheets
+Calculated total cost
 
----
+Optional profit margin
 
-### 🧪 Sample Input
+📊 3. Client-Facing Estimation Tool
+Use it during client meetings or bidding:
 
-```plaintext
-Item: RCC M20 for slab
-Length: 12m
-Breadth: 0.9m
-Depth: 0.9m
-Profit Margin: 15%
+No more guesswork or manual PDF searching
+
+Impress clients with clear cost breakdowns
+
+Answer “How much would this cost?” in real time
+
+⚙️ 4. Cross-Team Standardization
+Junior engineers and non-technical staff can:
+
+Search for SOR items accurately
+
+Apply consistent rates
+
+Avoid common item-code mismatches
+
+🧾 5. Excel-Style Output Export
+Generate exportable cost tables (CSV or XLSX)
+
+Feed into tender documents, invoices, or contractor proposals
+
+🔬 Future Features You Can Add
+🌐 6. Multi-State SOR Integration
+Add SORs from Telangana, Maharashtra, etc., and let the user:
+
+Select state
+
+Compare cost variation for the same item
+
+📐 7. CAD or Layout Integration
+Allow inputs from:
+
+CAD files (extract quantities)
+
+Sketches with AI layout tools (your other project!)
+
+🧠 8. Material + Labor Breakdown
+Split each item’s rate into:
+
+Material cost
+
+Labor cost
+
+Overheads
+
+🧾 9. GST + Margin Calculations
+Auto-apply:
+
+GST per category (18%, 12%)
+
+Custom contractor margins
+
+Subcontractor overheads
+
+📱 10. Mobile or Voice Interface
+Field engineers could:
+
+Speak into the tool (“Estimate plastering for 100 sqm”)
+
+Get results instantly
+
