@@ -69,6 +69,8 @@ Custom contractor margins
 Subcontractor overheads
 
 📱 10. Mobile or Voice Interface
+![image](https://github.com/user-attachments/assets/b302e9de-aee7-4378-9cc9-105cd58cb1af)
+
 Field engineers could:
 
 Speak into the tool (“Estimate plastering for 100 sqm”)
