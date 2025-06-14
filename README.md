@@ -22,7 +22,7 @@ Impress clients with clear cost breakdowns
 Answer “How much would this cost?” in real time
 
 ⚙️ 4. Cross-Team Standardization
-Junior engineers and non-technical staff can:
+Junior engineers and non-technical staffcan:
 
 Search for SOR items accurately
 
