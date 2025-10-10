@@ -1,79 +1,111 @@
-🏗️ 1. Automated BOQ Generation
-Generate full Bill of Quantities (BOQ) with item codes, descriptions, calculated volumes/areas, rates, and total costs — just from a description and dimensions.
+# AI Recruiter Scoring Toolkit
 
-💬 2. Natural Language Rate Lookup
-Query the tool using plain English (e.g., “RCC M20 for 10m x 0.9m x 0.9m”) and retrieve:
+This project transforms resumes into actionable hiring insights using a local
+LLaMA small model (TinyLlama or another compact GGUF build). Provide a job
+description and one or more CVs, and the tool will prompt the LLM to produce a
+structured JSON score that captures overall fit, a short summary, a verdict, and
+criterion-by-criterion evidence. The repository now ships with a polished
+"Principal Generative AI Platform Architect" job description plus two
+contrasting resume profiles so you can demo the pipeline with a demanding JD
+immediately.
 
-Official item code (e.g., KSRB 4.2.2)
+The code is intentionally lightweight so it can run entirely offline with a
+small model – perfect for HR teams or consultancies that want private screening
+without sending data to third-party APIs.
 
-Unit rate from Karnataka PWD SOR
+## Features
 
-Calculated total cost
+- 🤖 **LLaMA-powered analysis** – run against a TinyLlama/Tinyllama GGUF model
+  via [`llama-cpp-python`](https://github.com/abetlen/llama-cpp-python).
+- 📊 **Structured scoring** – get normalized 0-100 scores with verdicts and
+  textual evidence you can share with hiring managers.
+- 🧩 **Custom criteria** – tailor the evaluation dimensions (skills, domain
+  knowledge, leadership, etc.) for each hiring pipeline.
+- 🛠️ **CLI ready** – score a batch of resumes against one JD from the command
+  line and export JSON or human-readable text.
 
-Optional profit margin
+## Installation
 
-📊 3. Client-Facing Estimation Tool
-Use it during client meetings or bidding:
+1. Install dependencies (only `llama-cpp-python` is required at runtime):
 
-No more guesswork or manual PDF searching
+   ```bash
+   pip install llama-cpp-python
+   ```
 
-Impress clients with clear cost breakdowns
+2. Download a small LLaMA-family GGUF model (for example the
+   [`TinyLlama-1.1B-Chat-v1.0`](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0)
+   Q4_K_M variant) and place it at `models/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf`,
+   or pass the path explicitly to the CLI.
+3. (Optional) Explore the built-in job description and resumes exposed via
+   `ai_recruiter.library` to understand the expected input fidelity.
 
-Answer “How much would this cost?” in real time
+## Usage
 
-⚙️ 4. Cross-Team Standardization
-Junior engineers and non-technical staffcan:
+Put your job description and resume(s) in plain-text files. Then run:
 
-Search for SOR items accurately
+```bash
+python -m ai_recruiter.cli \
+  --jd path/to/job_description.txt \
+  --cv path/to/resume1.txt path/to/resume2.txt \
+  --model-path models/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf \
+  --format text
+```
 
-Apply consistent rates
+To produce JSON output (ideal for integrations):
 
-Avoid common item-code mismatches
+```bash
+python -m ai_recruiter.cli \
+  --jd job.txt \
+  --cv resume.txt \
+  --format json
+```
 
-🧾 5. Excel-Style Output Export
-Generate exportable cost tables (CSV or XLSX)
+### Instant demo with curated profiles
 
-Feed into tender documents, invoices, or contractor proposals
+Want to kick the tires without writing your own documents? Use the bundled job
+description and curated resumes:
 
-🔬 Future Features You Can Add
-🌐 6. Multi-State SOR Integration
-Add SORs from Telangana, Maharashtra, etc., and let the user:
+```bash
+python -m ai_recruiter.cli \
+  --jd-profile principal_llm_platform_architect \
+  --resume-profile mission_control_ml data_pipeline_specialist \
+  --format text
+```
 
-Select state
+The first resume (`mission_control_ml`) is a tight match for the hard
+requirements, while the second (`data_pipeline_specialist`) intentionally
+focuses on adjacent data engineering skills to highlight contrasting scores and
+rationales.
 
-Compare cost variation for the same item
+### Custom criteria
 
-📐 7. CAD or Layout Integration
-Allow inputs from:
+Override the default scoring dimensions by passing `--criteria`:
 
-CAD files (extract quantities)
+```bash
+python -m ai_recruiter.cli \
+  --jd data_scientist_jd.txt \
+  --cv candidate.txt \
+  --criteria "machine learning expertise" "llm deployment" "team leadership"
+```
 
-Sketches with AI layout tools (your other project!)
+When a curated job profile is selected, the CLI automatically injects that
+profile's evaluation criteria (`llm platform architecture`, `production
+leadership`, etc.). Supplying `--criteria` overrides both the defaults and the
+profile-specific guidance, giving you full control.
 
-🧠 8. Material + Labor Breakdown
-Split each item’s rate into:
+## Testing
 
-Material cost
+Run the unit tests (which stub the llama backend) with:
 
-Labor cost
+```bash
+pytest
+```
 
-Overheads
+## Notes on models
 
-🧾 9. GST + Margin Calculations
-Auto-apply:
-
-GST per category (18%, 12%)
-
-Custom contractor margins
-
-Subcontractor overheads
-
-📱 10. Mobile or Voice Interface
-![image](https://github.com/user-attachments/assets/b302e9de-aee7-4378-9cc9-105cd58cb1af)
-
-Field engineers could:
-
-Speak into the tool (“Estimate plastering for 100 sqm”)
-
-Get results instantly
-
+- This toolkit expects a small LLaMA-compatible GGUF model so it can run on
+  commodity hardware.
+- If you use a different model name or quantization, update `--model-path` or
+  the `RecruiterConfig` default.
+- The prompt instructs the LLM to return valid JSON. If the chosen model fails
+  to comply, tighten the temperature or add sampling constraints.
